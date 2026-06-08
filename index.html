@@ -1,0 +1,288 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MATRYOSHKA WAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo-mark"></div>
+    <div class="header-title">
+      <div class="classified">// INTELLIGENCE BRIEF //</div>
+      <div class="main">MATRYOSHKA WAR — THE GLOBAL ARCHITECTURE OF BIOLOGICAL DISINFORMATION</div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="filter-section">
+      <button class="exsum-btn" onclick="openExsum()"><span>⊞</span> EXECUTIVE SUMMARY</button>
+      <a class="download-btn" href="https://gpwmdcounterdisinfo.com/wp-content/uploads/2026/06/KCL2000_Biological-Disinformation-Report_v2.pdf" target="_blank" rel="noopener noreferrer"><span>↓</span> DOWNLOAD REPORT</a>
+      <div class="filter-label">// FILTER BY REGION</div>
+      <div class="region-filters">
+        <button class="filter-btn active" data-region="all"><span class="region-dot"></span> ALL REGIONS (10)</button>
+        <button class="filter-btn" data-region="africa"><span class="region-dot"></span> AFRICA (5)</button>
+        <button class="filter-btn" data-region="asia"><span class="region-dot"></span> ASIA-PACIFIC (3)</button>
+        <button class="filter-btn" data-region="latam"><span class="region-dot"></span> LATIN AMERICA (2)</button>
+      </div>
+      <button class="region-overview-btn" id="regionOverviewBtn" onclick="openRegionOverview()">
+        <span class="rov-dot" id="rovDot"></span>
+        <span id="rovLabel">REGIONAL OVERVIEW</span>
+      </button>
+    </div>
+    <div class="case-list" id="caseList">
+      <div class="case-item" data-region="africa" data-id="1" onclick="selectCase(1)">
+        <div class="case-num">AFRICA · 1/5</div>
+        <div class="case-name">Kenema Gov. Hospital, Sierra Leone</div>
+      </div>
+      <div class="case-item" data-region="africa" data-id="2" onclick="selectCase(2)">
+        <div class="case-num">AFRICA · 2/5</div>
+        <div class="case-name">INRB-Goma Lab, D.R. Congo</div>
+      </div>
+      <div class="case-item" data-region="africa" data-id="3" onclick="selectCase(3)">
+        <div class="case-num">AFRICA · 3/5</div>
+        <div class="case-name">KEMRI, Kenya</div>
+      </div>
+      <div class="case-item" data-region="africa" data-id="4" onclick="selectCase(4)">
+        <div class="case-num">AFRICA · 4/5</div>
+        <div class="case-name">Guinea</div>
+      </div>
+      <div class="case-item" data-region="africa" data-id="5" onclick="selectCase(5)">
+        <div class="case-num">AFRICA · 5/5</div>
+        <div class="case-name">Nigeria</div>
+      </div>
+      <div class="synthesis-item" data-region="africa" data-synth-id="africa" onclick="selectSynthesis('africa')">
+        <div class="synthesis-label">CROSS-CASE SYNTHESIS</div>
+        <div class="synthesis-name">Africa in the Matryoshka System</div>
+      </div>
+
+      <div class="case-item" data-region="asia" data-id="6" onclick="selectCase(6)">
+        <div class="case-num">ASIA-PAC · 1/3</div>
+        <div class="case-name">NAMRU-2, Jakarta, Indonesia</div>
+      </div>
+      <div class="case-item" data-region="asia" data-id="7" onclick="selectCase(7)">
+        <div class="case-num">ASIA-PAC · 2/3</div>
+        <div class="case-name">RADDL, Tarlac City, Philippines</div>
+      </div>
+      <div class="case-item" data-region="asia" data-id="8" onclick="selectCase(8)">
+        <div class="case-num">ASIA-PAC · 3/3</div>
+        <div class="case-name">AFRIMS Lab, Thailand</div>
+      </div>
+      <div class="synthesis-item" data-region="asia" data-synth-id="asia" onclick="selectSynthesis('asia')">
+        <div class="synthesis-label">CROSS-CASE SYNTHESIS</div>
+        <div class="synthesis-name">ASEAN in the Matryoshka System</div>
+      </div>
+
+      <div class="case-item" data-region="latam" data-id="9" onclick="selectCase(9)">
+        <div class="case-num">LATAM · 1/2</div>
+        <div class="case-name">NAMRU-6 / NAMRU-SOUTH, Lima, Peru</div>
+      </div>
+      <div class="case-item" data-region="latam" data-id="10" onclick="selectCase(10)">
+        <div class="case-num">LATAM · 2/2</div>
+        <div class="case-name">Anthrax, Dominican Republic–Haiti</div>
+      </div>
+      <div class="synthesis-item" data-region="latam" data-synth-id="latam" onclick="selectSynthesis('latam')">
+        <div class="synthesis-label">CROSS-CASE SYNTHESIS</div>
+        <div class="synthesis-name">Latin America in the Matryoshka System</div>
+      </div>
+      <div class="synthesis-item" data-region="global" data-synth-id="global" onclick="selectSynthesis('global')">
+        <div class="synthesis-label">GLOBAL CONCLUSION</div>
+        <div class="synthesis-name">How Disease, Science and Sovereignty Became a Geopolitical Weapon</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
+
+  <div class="detail-panel" id="detailPanel">
+    <div class="detail-resize-handle" id="detailResizeHandle">
+      <div class="resize-grip"></div>
+    </div>
+    <div class="detail-scroll-area" id="detailScrollArea">
+      <div class="detail-empty" id="detailEmpty"><span>◈</span> SELECT A CASE STUDY TO VIEW DETAILS</div>
+      <div class="detail-content" id="detailContent">
+        <div class="detail-header">
+          <div>
+            <div class="detail-meta" id="d-meta"></div>
+            <div class="detail-title" id="d-title"></div>
+            <div class="detail-tags" id="d-tags"></div>
+          </div>
+          <button class="close-btn" onclick="closeDetail()">✕</button>
+        </div>
+        <div class="detail-body" id="d-body"></div>
+        <div class="detail-footnotes" id="d-footnotes" style="display:none;">
+          <div class="detail-footnotes-label">// Notes</div>
+          <div class="footnote-list" id="d-footnote-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE MODAL -->
+<div class="modal-overlay" id="mobileModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <div class="detail-meta" id="m-meta"></div>
+        <div class="detail-title" id="m-title"></div>
+        <div class="detail-tags" id="m-tags"></div>
+      </div>
+      <button class="close-btn" onclick="closeMobileModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-body" id="m-body"></div>
+      <div class="detail-footnotes" id="m-footnotes" style="display:none;">
+        <div class="detail-footnotes-label">// Notes</div>
+        <div class="footnote-list" id="m-footnote-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY MODAL -->
+<div class="exsum-overlay" id="exsumOverlay" onclick="handleExsumOverlayClick(event)">
+  <div class="exsum-card">
+    <div class="exsum-header">
+      <div class="exsum-header-left">
+        <div class="exsum-kicker">// EXECUTIVE SUMMARY · MATRYOSHKA WAR</div>
+        <div class="exsum-title">The Matryoshka War in Three Regions</div>
+        <div class="exsum-subtitle">10 Case Studies across Africa, Asia-Pacific, and Latin America</div>
+      </div>
+      <button class="exsum-close" onclick="closeExsum()">✕</button>
+    </div>
+    <div class="exsum-body">
+      <div class="exsum-prose">
+        <p>Across Africa, Southeast Asia and Latin America, very different outbreaks, laboratories and political systems have been drawn into a single strategic narrative: that foreign-supported biosecurity and public-health cooperation conceals hostile geopolitical intent. Ebola units in West Africa, agricultural laboratories in the Philippines, influenza and dengue surveillance in Indonesia and Peru, and even anthrax rumours on the Hispaniola border have all been absorbed into the same storyworld. These are not isolated conspiracies. They are regional expressions of a single global narrative of biological disinformation.</p>
+        <p>At the core of this narrative sits the foundational claim that the United States and other members of the Global Partnership Against the Spread of Weapons and Materials of Mass Destruction (GP) lead a covert, militarised global network of biological laboratories operating under the cover of public-health cooperation. This claim is promoted and codified primarily by Russian security institutions and state-aligned media, where it is afforded the status of geopolitical "common sense" within Russian and Russian-allied information environments. It does not need to persuade in each location; it only needs to be available as a frame through which disease, laboratories and foreign cooperation and assistance in biological and public health domains are interpreted.</p>
+        <p>This report advances the <strong>"Matryoshka Model"</strong>, named after the Russian wooden dolls placed one inside another, where each outer figure contains a smaller version within it. The metaphor conveys how the foundational 'biolabs' narrative operates through nested, iterative layers of messaging, that incorporate and reformulate regional politics and anxieties to cement the core disinformation narrative via adapted regional expressions.</p>
+      </div>
+      <hr class="exsum-divider">
+      <div class="exsum-regions">
+        <div class="exsum-region" data-region="africa">
+          <div class="exsum-region-label">Region 01 · Africa</div>
+          <div class="exsum-region-text">In <strong>Africa</strong>, the Matryoshka is powered by outbreak trauma and colonial memory. Ebola, Lassa fever and COVID-19 generated fear, grief and mistrust of foreign medical actors. Laboratories such as Kenema, Goma and KEMRI became emotionally charged symbols of external power operating amid suffering. Local rumours about experimentation or exploitation were then harvested by Russian state actors as proof that Africans themselves reject Western biosecurity.</div>
+        </div>
+        <div class="exsum-region" data-region="asia">
+          <div class="exsum-region-label">Region 02 · Asia-Pacific</div>
+          <div class="exsum-region-text">In <strong>ASEAN</strong>, the Matryoshka feeds on storylines centred on dual-use science, food security and sovereignty. Laboratories that sit at the intersection of agriculture, disease and defence such as NAMRU-2, RADDL and AFRIMS are structurally ambiguous. Domestic political actors, nationalist blocs and fringe networks reinterpret these sites through anxieties of militarisation and economic vulnerability. Russian actors have then elevated these local disputes into regional evidence of a global US biolab network.</div>
+        </div>
+        <div class="exsum-region" data-region="latam">
+          <div class="exsum-region-label">Region 03 · Latin America</div>
+          <div class="exsum-region-text">In <strong>Latin America</strong>, the Matryoshka is sustained by histories of intervention, ideological activism and border insecurity. Activist and quasi-academic networks embedded NAMRU-SOUTH within anti-imperialist narratives, which were later incorporated into Russian geopolitical messaging. Meanwhile, even fleeting outbreak rumours — such as the anthrax scare on the Haiti–Dominican Republic border — have drawn on the same bioterror frame, showing how deeply embedded the global narrative has become.</div>
+        </div>
+      </div>
+      <hr class="exsum-divider">
+      <div class="exsum-prose">
+        <p>Across all three regions, the same nested structure operates. At the outer tier, state-level disinformation supplies meaning. At the middle tier, domestic politics, activism or crisis response translate that meaning into locally resonant claims. At the innermost tier, fear, memory and vulnerability make those claims feel true. These layers reinforce one another cyclically: local anxiety is transformed through various architectures into internationally consequential 'evidence', which in turn validates original claims.</p>
+        <p>The result is a self-sustaining information system in which global health security infrastructure is made legible as a geopolitical threat. Laboratories do not need to be secret to be suspect. Outbreaks do not need to be unnatural to be weaponised. Once inside the Matryoshka, health security becomes a strategic asset for manipulation.</p>
+        <p>The real danger suggested by these cross-regional case studies is that biological disinformation does not spread simply because people reject science. It spreads because science now sits at the centre of global power confrontations. The infrastructure designed to protect populations—laboratories, genomes, surveillance networks and health systems—has become the terrain upon which geopolitical conflicts are being fought.</p>
+      </div>
+
+      <hr class="exsum-divider">
+      <div class="exsum-nested-heading">
+        Nested Lies: How the Biolab Narrative Takes Hold
+      </div>
+      <div>
+
+        <div class="exsum-subsection">
+          <div class="exsum-subsection-heading">Biological Security as an Information Battlespace</div>
+          <div class="exsum-subsection-text">
+            <p>For decades, biological weapons have occupied a sensitive place in international security discourse. Unlike nuclear or conventional arms, biological agents are invisible, ambiguous, and deeply entangled with public health and scientific cooperation. This makes biological security exceptionally vulnerable to narrative manipulation and uniquely susceptible to geopolitical exploitation, and has enabled it to be strategically exploited through a foundational narrative that US cooperative threat reduction (CTR) and international biorisk management assistance programmes disguise a global biological weapons network under the cover of public-health research.</p>
+            <p>Since at least the mid-2010s, and with particular intensity following Russia's full-scale invasion of Ukraine in February 2022, this foundational narrative has been systematically weaponised by Russian state institutions and aligned actors. The campaign reached an international crescendo in the summer and autumn of 2022, when Russia invoked Article V of the Biological Weapons Convention (BWC) and convened a Formal Consultative Meeting (FCM). There, Russian officials presented more than 300 pages of alleged "evidence" seized from Ukrainian laboratories, claiming the United States and Ukraine were running an offensive biological weapons programme in violation of the treaty.</p>
+            <p>Although the United States and Ukraine were the immediate targets, this narrative was never geographically confined. Similar allegations had appeared prior to the full-scale invasion but following it they rapidly proliferated beyond the theatre of the former-Soviet Union. Africa, the Asia-Pacific, Eastern Europe, and Latin America rapidly became interconnected theatres of a single information war, bound together by the same underlying story, adapted to local political and historical anxieties. What has varied is not the core claim, which has demonstrated remarkable narrative durability. Instead, alterations in form have been demonstrated in its local expression, its interpretative significance, and its subsequent incorporation into political action and social effects.</p>
+          </div>
+        </div>
+
+        <div class="exsum-subsection">
+          <div class="exsum-subsection-heading">The Matryoshka Model</div>
+          <div class="exsum-subsection-text">
+            <p>The report advances a 'Matryoshka Model' to understand disinformation. The Model takes its name from the Russian nesting dolls placed one inside another, where each outer figure contains a smaller version within it. In the same way, biological disinformation operates through layered narrative shells: a single foundational claim is wrapped in diplomatic, media and local stories that adapt it to different political and cultural contexts while still preserving its core meaning. Each doll corresponds to a tier of narrative production and amplification. Together they form an iterative system that translates nebulous geopolitical claims into tangible political and social outcomes. At the centre of every doll runs the foundational biolab narrative which claims that biological cooperation and assistance from Global Partnership states—especially through the US and its CTR programmes, DTRA and USAID laboratories —masks or conceals military-biological activity. Because this narrative is deliberately broad and ambiguous, it can be continuously reinterpreted, allowing actors at every tier to adapt it to their own agendas.</p>
+          </div>
+        </div>
+
+        <div class="exsum-subsection">
+          <div class="exsum-subsection-heading">The Largest Doll: Multilateral Legitimisation</div>
+          <div class="exsum-subsection-text">
+            <p>The outermost doll represents multilateral disarmament fora, primarily the UN Security Council and the Biological Weapons Convention (BWC). Here, Russia, and to some extent China, act as agenda-setting powers, where their statements and documentary material embed the foundational narrative into formal diplomatic language. By invoking treaty mechanisms, Russia reframes strategic disinformation as a legal and technical dispute.</p>
+            <p>This tier performs two crucial functions. The first is setting a precedent. By raising allegations inside treaty frameworks, Russia makes them appear procedurally legitimate. The second is providing enough ambiguity, through framing claims as 'concerns,' 'questions,' and 'unexplained activities' to allow wide interpretive space. The BWC thus becomes both a megaphone and a shield where disinformation gains authority and where its mechanisms are used to both advance and counter re-emerging allegations.</p>
+          </div>
+        </div>
+
+        <div class="exsum-subsection">
+          <div class="exsum-subsection-heading">The Middle Dolls: State Production and Strategic Framing</div>
+          <div class="exsum-subsection-text">
+            <p>Inside the multilateral shell sit the Ministries of Defence (MODs) and Ministries of Foreign Affairs (MFAs) of aggressor states—the industrial architects of narrative proliferation. For the 'biolabs' narrative, it is primarily the Russian MOD and its Radiation, Chemical, and Biological Protection Troops (Ru: РХБЗ, En transliteraion: RKhBZ, En translation: RCBD [CBRN]) whose regular briefings by prominent figures such as Lt-Gen Igor Kirillov (2022–2023) and Maj-Gen Aleksei Rtishchev (2024–2025) deliver highly detailed and technical-sounding briefings alleging US biological warfare networks across Africa, Asia and Eastern Europe. These briefings introduce named US institutions, alleged African and Asian lab locations, and individual scientists and contractors. This specificity gives the foundational narrative technical texture, making it appear investigatory rather than conspiratorial. The Russian MFA reinforces this framing through its spokespersons such as Maria Zakharova. Parliamentary figures, such as Konstantin Kosachev and Oleg Ozerov, echo the claims in diplomatic and media settings, thereby translating military-technical allegations into political and legal grievances.</p>
+            <p>Smaller dolls are composed of state-aligned and proxy media. For the 'biolabs' narrative, these consist primarily of TASS, RIA Novosti, Sputnik, RT, TV Zvezda, and local versions such as Sputnik Africa, African Initiative and Africa Tsargrad, along with Telegram and X networks linked to Russian embassies. MOD briefings are typically reproduced almost verbatim within hours, then repackaged for local audiences in English, French, Arabic and other regional languages. This tier transforms elite claims into consumable stories, and the foundational narrative is transformed into: 'US labs in Nigeria,' 'Monkeypox experiments in Kenya,' 'Relocated Ukrainian biolabs in South Africa,' and similar locally resonant storylines.</p>
+          </div>
+        </div>
+
+        <div class="exsum-subsection">
+          <div class="exsum-subsection-heading">The Smallest Dolls: Local Actors and Interpretive Flexibility</div>
+          <div class="exsum-subsection-text">
+            <p>The innermost dolls represent domestic political and media ecosystems. This is where narratives gain power through local meaning-making, following their own logic within cultural, historical and ideological contexts. Key local validators in Africa, for example, include Philip Njemanze (Nigeria), Yves Ekoue Amaïso (Côte d'Ivoire), Dr Ntsikelelo Breakfast (South Africa) and online communities such as Nairaland. These actors reinterpret Russian claims through logics of colonial memory, vaccine distrust, sovereignty anxieties and elite corruption. In this context key words and phrases are adapted into symbolic synonyms; 'DTRA' becomes 'Western medical imperialism,' and 'biosurveillance' becomes 'experiments on Africans.' These interpretations are not imposed externally, instead they are co-constructed by both sources and proliferators, and their local specificity affords credibility within local information ecosystems.</p>
+          </div>
+        </div>
+
+        <div class="exsum-subsection">
+          <div class="exsum-subsection-heading">Cyclical Reinforcement</div>
+          <div class="exsum-subsection-text">
+            <p>The true power of the Matryoshka model lies in iterative feedback loops, or what can be termed 'proof-of-concept recycling'. Examples of this in practice have shown that events such as a laboratory closure following a set of allegations may lead to the collapse of cooperative partnerships, following which protests may erupt or governments may demand investigations into the original cooperative agreements. These kinds of occurrences have been cited by the Russian MOD and MFA as evidence that something sinister existed, and these claims are then refined and repurposed as 'evidence' into subsequent allegations targeting other settings. In short, local consequences validate the foundational narrative at the top, which then fuels further amplification downward.</p>
+          </div>
+        </div>
+
+        <div class="exsum-subsection">
+          <div class="exsum-subsection-heading">Strategic Implications</div>
+          <div class="exsum-subsection-text">
+            <p>This architecture produces three dangerous effects:</p>
+            <div class="exsum-implication-list">
+              <div class="exsum-implication"><strong>Erosion of the BWC.</strong> By saturating treaty mechanisms with allegations, Russia turns arms control into a battlefield, undermining trust in verification and compliance.</div>
+              <div class="exsum-implication"><strong>Weaponisation of Public Health.</strong> WHO inspections, outbreak response, and biosurveillance are reframed as hostile acts.</div>
+              <div class="exsum-implication"><strong>Narrative Sovereignty Capture.</strong> States become trapped: defending cooperation can appear as if accepting culpability, while disengaging risks real public-health harm.</div>
+            </div>
+            <p style="margin-top:12px;">The Matryoshka Model reveals that biological disinformation is not a linear propaganda campaign but an iterative narrative ecosystem. From Geneva to Telegram, from Russian generals to African influencers, every tier adds meaning, legitimacy and momentum to the same foundational story. Biological security, once a domain of cooperation, is now a nested information war, one doll inside another, each shaping the next.</p>
+          </div>
+        </div>
+
+      </div><!-- end nested lies -->
+    </div>
+    <div class="exsum-footer">
+      <div class="exsum-footer-note">MATRYOSHKA WAR · 10 CASE STUDIES · 3 REGIONS · 3 CROSS-CASE SYNTHESES · 1 GLOBAL CONCLUSION</div>
+      <button class="exsum-footer-btn" onclick="closeExsum()">EXPLORE CASE STUDIES ▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- REGIONAL OVERVIEW MODAL -->
+<div class="regov-overlay" id="regovOverlay" onclick="handleRegovOverlayClick(event)">
+  <div class="regov-card">
+    <div class="regov-header" id="regovHeader">
+      <div class="regov-header-left">
+        <div class="regov-kicker" id="regovKicker"></div>
+        <div class="regov-title" id="regovTitle"></div>
+      </div>
+      <button class="regov-close" onclick="closeRegionOverview()">✕</button>
+    </div>
+    <div class="regov-body">
+      <div class="regov-prose" id="regovBody"></div>
+    </div>
+    <div class="regov-footer">
+      <div class="regov-footer-note" id="regovFooterNote"></div>
+      <button class="regov-footer-btn" onclick="closeRegionOverview()">CLOSE ✕</button>
+    </div>
+  </div>
+</div>
+
+<script src="scripts/app.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
