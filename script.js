@@ -842,10 +842,34 @@ function initMap() {
     zoomControl: true, attributionControl: true
   });
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
     subdomains: 'abcd', maxZoom: 19
   }).addTo(map);
+
+  const GEO_LABELS = [
+    { text: 'NORTH AMERICA',  lat: 48,   lng: -100 },
+    { text: 'SOUTH AMERICA',  lat: -15,  lng: -58  },
+    { text: 'EUROPE',         lat: 54,   lng: 18   },
+    { text: 'AFRICA',         lat: 3,    lng: 22   },
+    { text: 'ASIA',           lat: 45,   lng: 90   },
+    { text: 'AUSTRALIA',      lat: -26,  lng: 134  },
+    { text: 'PACIFIC OCEAN',  lat: 5,    lng: -155 },
+    { text: 'ATLANTIC OCEAN', lat: 10,   lng: -30  },
+    { text: 'INDIAN OCEAN',   lat: -22,  lng: 75   },
+    { text: 'ARCTIC OCEAN',   lat: 82,   lng: 0    },
+  ];
+
+  GEO_LABELS.forEach(({ text, lat, lng }) => {
+    L.marker([lat, lng], {
+      icon: L.divIcon({
+        className: '',
+        html: `<span class="map-geo-label">${text}</span>`,
+        iconSize: null, iconAnchor: [0, 0]
+      }),
+      interactive: false, zIndexOffset: -1000
+    }).addTo(map);
+  });
 
   Object.entries(CASES).forEach(([id, data]) => {
     const color = COLOR[data.region];
