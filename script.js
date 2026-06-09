@@ -581,13 +581,13 @@ const CASES = {
   }
 };
 
-const COLOR = { africa: '#c8102e', asia: '#1a5fa8', latam: '#1a7a4a', global: '#6b4c9a' };
+const COLOR = { africa: '#c8a84b', asia: '#4a7a72', latam: '#b5603c', global: '#3a3d42' };
 
 // Regional Overviews & Syntheses - content follows same structure as original but with updated text from the document
 
 const REGION_OVERVIEWS = {
   africa: {
-    color: '#c8102e',
+    color: '#c8a84b',
     kicker: '// REGIONAL OVERVIEW · AFRICA',
     title: 'Africa: A Sustained Theatre for State-Linked Biological Disinformation',
     footerNote: 'AFRICA CLUSTER · 5 CASE STUDIES · 1 CROSS-CASE SYNTHESIS',
@@ -610,7 +610,7 @@ const REGION_OVERVIEWS = {
       <p>The result is a cyclically reinforcing, multi-tiered narrative ecosystem in which local anxieties, geopolitical messaging, and historical memory intersect. Biological disinformation in Africa is therefore not simply imported; it is continually reshaped through regional insecurities and political realities, and its local consequences are then recycled upward as supposed proof of Western wrongdoing. This dynamic ensures that false narratives remain durable, adaptable and deeply embedded across the continent's information landscape.</p>`
   },
   asia: {
-    color: '#1a5fa8',
+    color: '#4a7a72',
     kicker: '// REGIONAL OVERVIEW · ASIA-PACIFIC',
     title: 'Asia-Pacific: Strategic Narratives in a High-Risk Biosecurity Region',
     footerNote: 'ASIA-PACIFIC CLUSTER · 3 CASE STUDIES · 1 CROSS-CASE SYNTHESIS',
@@ -628,7 +628,7 @@ const REGION_OVERVIEWS = {
       <p>The Asia-Pacific case studies — NAMRU-2 in Indonesia, the Tarlac City Regional Animal Disease Diagnostic Laboratory in the Philippines and AFRIMS in Thailand — illustrate this architecture in practice. Each demonstrates how a single global narrative is repackaged into regionally specific accusations, how local actors co-produce and circulate disinformation, and how external state actors then recycle these localised narratives upward as apparent confirmation of their original claims. Together, they reveal how biological disinformation has become a cyclically reinforcing, multi-tiered ecosystem within the region's political and informational landscape, readily mobilised in moments of crisis or diplomatic tension.</p>`
   },
   latam: {
-    color: '#1a7a4a',
+    color: '#b5603c',
     kicker: '// REGIONAL OVERVIEW · LATIN AMERICA',
     title: 'Latin America: Biological Disinformation in a Region of Intervention and Insecurity',
     footerNote: 'LATIN AMERICA CLUSTER · 2 CASE STUDIES · 1 CROSS-CASE SYNTHESIS',
@@ -660,6 +660,7 @@ const SYNTHESES = {
     tags: ['CROSS-CASE SYNTHESIS', 'AFRICA', 'MATRYOSHKA MODEL'],
     images: [],
     body: `
+      <div class="bg-infographic"><img src="images/Matryoska%20Dolls/Africa-1.png" alt="Africa in the Matryoshka System" class="bg-infographic-img"></div>
       <div class="section-heading">From Outbreaks to Information War</div>
       <p>Kenema, Goma, KEMRI, Guinea and Nigeria appear to describe different stories: Ebola, Lassa fever, biosurveillance, monkeypox and laboratory assistance. Yet they all enter the same disinformation system because disease outbreaks in Africa are already politically charged by tragic histories of colonial medicine, extractive research and humanitarian intervention. Outbreaks create moments of fear and grievance and laboratories become symbols of foreign power. This analysis shows that once these conditions exist, the foundational biolab narrative does not have to persuade, it only has to attach to a susceptible site of resonance to remain durable.</p>
 
@@ -682,6 +683,7 @@ const SYNTHESES = {
     tags: ['CROSS-CASE SYNTHESIS', 'ASIA-PACIFIC', 'MATRYOSHKA MODEL'],
     images: [],
     body: `
+      <div class="bg-infographic"><img src="images/Matryoska%20Dolls/Asia-1.png" alt="ASEAN in the Matryoshka System" class="bg-infographic-img"></div>
       <div class="section-heading">One Architecture, Three Entry Points</div>
       <p>NAMRU-2, RADDL and AFRIMS appear unrelated: one is a Cold War-era U.S. military lab, one an agricultural disease centre, and one a bilateral research institute. Yet all three become legible through the same foundational biolab narrative. Each enters the system from a different tier, whether historical grievance, domestic politics or digital fringe, but once inside, they fit neatly within an iterative feedback loop.</p>
 
@@ -707,6 +709,7 @@ const SYNTHESES = {
     tags: ['CROSS-CASE SYNTHESIS', 'LATIN AMERICA', 'MATRYOSHKA MODEL'],
     images: [],
     body: `
+      <div class="bg-infographic"><img src="images/Matryoska%20Dolls/LatAm-1.png" alt="Latin America in the Matryoshka System" class="bg-infographic-img"></div>
       <div class="section-heading">From Laboratories and Borders into One Narrative System</div>
       <p>NAMRU-SOUTH in Peru and the Haiti–Dominican Republic anthrax scare appear very different. Yet both are absorbed into the same disinformation system because disease, sovereignty and foreign presence are already politically charged. Once a laboratory or outbreak becomes interpretable through the biolab frame, it enters the Matryoshka and begins reinforcing it.</p>
 
@@ -727,9 +730,9 @@ const SYNTHESES = {
     footnotes: []
   },
   global: {
-    region: 'global', regionLabel: 'GLOBAL CONCLUSION',
+    region: 'global', regionLabel: 'KEY TAKE AWAYS',
     title: 'Key Take Aways: How Disease, Science and Sovereignty Became a Geopolitical Weapon',
-    tags: ['GLOBAL CONCLUSION', 'CROSS-REGIONAL', 'MATRYOSHKA MODEL'],
+    tags: ['KEY TAKE AWAYS', 'CROSS-REGIONAL', 'MATRYOSHKA MODEL'],
     images: [],
     body: `
       <p>Across Africa, Southeast Asia and Latin America, very different laboratories, outbreaks and political systems have been drawn into a single strategic narrative: that foreign-supported biosecurity and public-health cooperation conceals hostile geopolitical intent. Ebola treatment units in West Africa, agricultural laboratories in the Philippines, influenza and dengue surveillance in Indonesia and Peru, and even anthrax rumours on the Hispaniola border have all been absorbed into the same narrative family.</p>
@@ -760,6 +763,32 @@ function closeExsum() {
 }
 function handleExsumOverlayClick(e) {
   if (e.target === document.getElementById('exsumOverlay')) closeExsum();
+}
+
+function openBackground() {
+  document.getElementById('bgOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeBackground() {
+  document.getElementById('bgOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function handleBgOverlayClick(e) {
+  if (e.target === document.getElementById('bgOverlay')) closeBackground();
+}
+
+function openKtaway() {
+  const data = SYNTHESES['global'];
+  if (data) document.getElementById('ktaway-body-content').innerHTML = data.body;
+  document.getElementById('ktawayOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeKtaway() {
+  document.getElementById('ktawayOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function handleKtawayOverlayClick(e) {
+  if (e.target === document.getElementById('ktawayOverlay')) closeKtaway();
 }
 
 // ─── REGIONAL OVERVIEW ───────────────────────────────────────────────────────
@@ -799,6 +828,12 @@ function updateRegionOverviewBtn(region) {
 }
 
 // ─── LEAFLET MAP ─────────────────────────────────────────────────────────────
+const DOLL_ICONS = {
+  africa: 'images/Matryoska%20Dolls/Africa_transparent.png',
+  asia:   'images/Matryoska%20Dolls/Asia_transparent.png',
+  latam:  'images/Matryoska%20Dolls/LatAm_transparent.png'
+};
+
 let map, markersById = {}, activeCase = null;
 
 function initMap() {
@@ -815,17 +850,12 @@ function initMap() {
   Object.entries(CASES).forEach(([id, data]) => {
     const color = COLOR[data.region];
     const numId = parseInt(id);
+    const dollSrc = DOLL_ICONS[data.region];
 
     const svgIcon = L.divIcon({
       className: '',
-      html: `<div style="position:relative;width:28px;height:28px;">
-        <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="14" cy="14" r="12" fill="${color}" fill-opacity="0.15"/>
-          <circle cx="14" cy="14" r="6" fill="${color}" fill-opacity="0.9"/>
-          <circle cx="14" cy="14" r="6" fill="none" stroke="${color}" stroke-width="1.5" stroke-opacity="0.6"/>
-        </svg>
-      </div>`,
-      iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -16]
+      html: `<img src="${dollSrc}" style="width:30px;height:50px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.45));transition:transform 0.15s;" onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'">`,
+      iconSize: [30, 50], iconAnchor: [15, 50], popupAnchor: [0, -52]
     });
 
     const marker = L.marker([data.lat, data.lng], { icon: svgIcon });
@@ -980,7 +1010,8 @@ function selectSynthesis(id) {
   const color = COLOR[data.region];
 
   document.querySelectorAll('.case-item, .synthesis-item').forEach(el => el.classList.remove('active'));
-  document.querySelector(`.synthesis-item[data-synth-id="${id}"]`).classList.add('active');
+  const synthEl = document.querySelector(`.synthesis-item[data-synth-id="${id}"]`);
+  if (synthEl) synthEl.classList.add('active');
 
   const dMeta = document.getElementById('d-meta');
   const dTitle = document.getElementById('d-title');
