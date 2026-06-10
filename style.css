@@ -108,7 +108,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
     text-transform: uppercase;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
+    display: flex; align-items: center; justify-content: flex-start; gap: 8px;
     margin-bottom: 14px;
     transition: background 0.15s;
   }
@@ -116,7 +116,7 @@
 
   .bg-btn {
     width: 100%;
-    background: #3a5f8a;
+    background: #3d5c3a;
     border: none;
     color: #ffffff;
     padding: 9px 12px;
@@ -124,29 +124,29 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
     text-transform: uppercase;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
+    display: flex; align-items: center; justify-content: flex-start; gap: 8px;
     margin-bottom: 14px;
     transition: background 0.15s;
   }
-  .bg-btn:hover { background: #2d4e72; }
+  .bg-btn:hover { background: #2e4a2b; }
 
   .download-btn {
     width: 100%;
-    background: none;
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #a0b4cc;
+    background: #b8cdb5;
+    border: none;
+    color: #2e4a2b;
     padding: 7px 12px;
     cursor: pointer;
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
     text-transform: uppercase;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
+    display: flex; align-items: center; justify-content: flex-start; gap: 8px;
     margin-bottom: 14px;
     text-decoration: none;
     transition: all 0.15s;
     box-sizing: border-box;
   }
-  .download-btn:hover { background: rgba(255,255,255,0.08); color: #ffffff; border-color: rgba(255,255,255,0.45); }
+  .download-btn:hover { background: #a4bc9f; color: #2e4a2b; }
 
   .filter-label {
     font-family: 'Share Tech Mono', monospace;
@@ -639,25 +639,20 @@
 
   /* ─── KEY TAKE AWAYS SIDEBAR BUTTON ─────────────────────────────────────── */
   .ktaway-sidebar-btn {
-    background: #3a3d42;
+    background: #3d5c3a;
     border: none;
-    padding: 10px 12px;
-    cursor: pointer; transition: background 0.15s;
-    margin-top: 8px;
-  }
-  .ktaway-sidebar-btn:hover { background: #2e3035; }
-  .ktaway-sidebar-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.7);
-    margin-bottom: 4px; text-transform: uppercase;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .ktaway-sidebar-label::before { content: '◈'; font-size: 8px; color: #c8a84b; }
-  .ktaway-sidebar-name {
+    color: #ffffff;
+    padding: 9px 12px;
+    cursor: pointer;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px; font-weight: 600; color: #ffffff;
-    line-height: 1.3; font-style: italic;
+    font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+    margin-bottom: 14px;
+    width: 100%;
+    transition: background 0.15s;
   }
+  .ktaway-sidebar-btn:hover { background: #2e4a2b; }
 
   /* ─── KEY TAKE AWAYS MODAL ───────────────────────────────────────────────── */
   .ktaway-overlay {
