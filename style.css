@@ -108,7 +108,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
     text-transform: uppercase;
-    display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
     margin-bottom: 14px;
     transition: background 0.15s;
   }
@@ -124,7 +124,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
     text-transform: uppercase;
-    display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
     margin-bottom: 14px;
     transition: background 0.15s;
   }
@@ -140,7 +140,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
     text-transform: uppercase;
-    display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
     margin-bottom: 14px;
     text-decoration: none;
     transition: all 0.15s;
@@ -582,10 +582,19 @@
   .exsum-implication::before { content: '▸'; color: #c8a84b; font-size: 11px; flex-shrink: 0; }
   .exsum-implication strong { color: var(--navy); font-weight: 600; }
 
+  /* Implication table */
+  .implication-table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+  .implication-table tr { vertical-align: top; }
+  .implication-table td { padding: 5px 8px 5px 0; font-family: 'Barlow', sans-serif; font-size: 13.5px; line-height: 1.6; color: #3a3530; }
+  .implication-bullet { color: #c8a84b; font-size: 11px; white-space: nowrap; padding-right: 6px; width: 12px; }
+  .implication-title { white-space: nowrap; padding-right: 10px; color: var(--navy); font-weight: 600; width: 1%; }
+  .implication-title strong { color: var(--navy); font-weight: 600; }
+  .implication-desc { width: 100%; }
+
   /* ─── BACKGROUND MODAL ──────────────────────────────────────────────────── */
   .bg-overlay {
     display: none; position: fixed; inset: 0;
-    background: rgba(10,20,35,0.82); z-index: 3000;
+    background: rgba(10,26,12,0.82); z-index: 3000;
     padding: 24px; overflow-y: auto;
   }
   .bg-overlay.active { display: flex; align-items: flex-start; justify-content: center; }
@@ -593,8 +602,8 @@
   .bg-card {
     background: var(--surface); max-width: 860px; width: 100%;
     margin-top: 16px; margin-bottom: 24px;
-    border: 1px solid var(--border); border-top: 4px solid #3a5f8a;
-    box-shadow: 0 12px 48px rgba(10,20,35,0.35);
+    border: 1px solid var(--border); border-top: 4px solid #3d5c3a;
+    box-shadow: 0 12px 48px rgba(10,26,12,0.35);
   }
 
   .bg-header {
@@ -605,7 +614,7 @@
   .bg-header-left { flex: 1; }
   .bg-kicker {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 9px; letter-spacing: 3px; color: #6a9fd4; margin-bottom: 6px;
+    font-size: 9px; letter-spacing: 3px; color: #c8a84b; margin-bottom: 6px;
   }
   .bg-title {
     font-family: 'Barlow Condensed', sans-serif;
@@ -647,7 +656,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
     text-transform: uppercase;
-    display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
     margin-bottom: 14px;
     width: 100%;
     transition: background 0.15s;
@@ -657,7 +666,7 @@
   /* ─── KEY TAKE AWAYS MODAL ───────────────────────────────────────────────── */
   .ktaway-overlay {
     display: none; position: fixed; inset: 0;
-    background: rgba(20,10,35,0.82); z-index: 3000;
+    background: rgba(10,26,12,0.82); z-index: 3000;
     padding: 24px; overflow-y: auto;
   }
   .ktaway-overlay.active { display: flex; align-items: flex-start; justify-content: center; }
@@ -665,8 +674,8 @@
   .ktaway-card {
     background: var(--surface); max-width: 860px; width: 100%;
     margin-top: 16px; margin-bottom: 24px;
-    border: 1px solid var(--border); border-top: 4px solid #3a3d42;
-    box-shadow: 0 12px 48px rgba(20,10,35,0.35);
+    border: 1px solid var(--border); border-top: 4px solid #3d5c3a;
+    box-shadow: 0 12px 48px rgba(10,26,12,0.35);
   }
 
   .ktaway-header {

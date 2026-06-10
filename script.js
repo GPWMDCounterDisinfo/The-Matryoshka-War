@@ -964,6 +964,25 @@ document.addEventListener('click', function(e) {
     e.preventDefault();
   });
 }());
+function convertTakeawayLists(container) {
+  container.querySelectorAll('.takeaway-list').forEach(list => {
+    const table = document.createElement('table');
+    table.className = 'implication-table';
+    list.querySelectorAll('.takeaway').forEach(item => {
+      const strong = item.querySelector('strong');
+      const titleHtml = strong ? strong.outerHTML : '';
+      let descHtml = '';
+      item.childNodes.forEach(node => {
+        if (node !== strong) descHtml += node.nodeType === 3 ? node.textContent : node.outerHTML;
+      });
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="implication-bullet">▸</td><td class="implication-title">${titleHtml}</td><td class="implication-desc">${descHtml.trim()}</td>`;
+      table.appendChild(tr);
+    });
+    list.replaceWith(table);
+  });
+}
+
 function renderImageMarkup(images) {
   if (!images || !images.length) return '';
   return `
@@ -994,6 +1013,7 @@ function selectCase(id) {
   dTitle.style.paddingLeft = '10px';
   document.getElementById('d-tags').innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
   document.getElementById('d-body').innerHTML = linkifyBodyRefs(data.body + renderImageMarkup(data.images), 'd');
+  convertTakeawayLists(document.getElementById('d-body'));
   renderFootnotes(data.footnotes, 'd-footnote-list', document.getElementById('d-footnotes'), 'd');
   document.getElementById('detailEmpty').style.display = 'none';
   document.getElementById('detailContent').classList.add('active');
@@ -1008,6 +1028,7 @@ function selectCase(id) {
     mTitle.style.paddingLeft = '10px';
     document.getElementById('m-tags').innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
     document.getElementById('m-body').innerHTML = linkifyBodyRefs(data.body + renderImageMarkup(data.images), 'm');
+    convertTakeawayLists(document.getElementById('m-body'));
     renderFootnotes(data.footnotes, 'm-footnote-list', document.getElementById('m-footnotes'), 'm');
     document.getElementById('mobileModal').classList.add('active');
   }
@@ -1046,6 +1067,7 @@ function selectSynthesis(id) {
   dTitle.style.paddingLeft = '10px';
   document.getElementById('d-tags').innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
   document.getElementById('d-body').innerHTML = linkifyBodyRefs(data.body + renderImageMarkup(data.images), 'd');
+  convertTakeawayLists(document.getElementById('d-body'));
   renderFootnotes(data.footnotes, 'd-footnote-list', document.getElementById('d-footnotes'), 'd');
   document.getElementById('detailEmpty').style.display = 'none';
   document.getElementById('detailContent').classList.add('active');
@@ -1060,6 +1082,7 @@ function selectSynthesis(id) {
     mTitle.style.paddingLeft = '10px';
     document.getElementById('m-tags').innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
     document.getElementById('m-body').innerHTML = linkifyBodyRefs(data.body + renderImageMarkup(data.images), 'm');
+    convertTakeawayLists(document.getElementById('m-body'));
     renderFootnotes(data.footnotes, 'm-footnote-list', document.getElementById('m-footnotes'), 'm');
     document.getElementById('mobileModal').classList.add('active');
   }
