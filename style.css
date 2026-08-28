@@ -148,6 +148,24 @@
   }
   .download-btn:hover { background: #a4bc9f; color: #2e4a2b; }
 
+  .memo-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #b8cdb5;
+    color: #b8cdb5;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-bottom: 14px;
+    text-decoration: none;
+    transition: all 0.15s;
+    box-sizing: border-box;
+  }
+  .memo-btn:hover { background: rgba(184,205,181,0.12); color: #b8cdb5; }
+
   .filter-label {
     font-family: 'Share Tech Mono', monospace;
     font-size: 10px; letter-spacing: 2px; color: #a0b4cc;
