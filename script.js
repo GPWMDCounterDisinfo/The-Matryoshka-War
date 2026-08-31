@@ -1122,3 +1122,30 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 window.addEventListener('DOMContentLoaded', initMap);
+
+// ─── IFRAME AUTO-HEIGHT (for the WordPress embed) ────────────────────────────
+// This page is displayed at gpwmdcounterdisinfo.com inside a fixed-height
+// iframe. On mobile that produces a nested scrollbar (scroll the page, then
+// scroll trapped content inside the iframe box). When embedded, report our
+// real content height to the parent window on load/resize/content-change so
+// the parent can resize the iframe to match and avoid double scrolling.
+// No-ops entirely when the page isn't embedded. See EMBEDDING.md for the
+// matching WordPress-side listener snippet.
+(function () {
+  if (window.self === window.top) return; // not embedded, nothing to do
+
+  const MESSAGE_TYPE = 'matryoshka:resize';
+  let lastHeight = 0;
+
+  function reportHeight() {
+    const height = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    if (height === lastHeight) return;
+    lastHeight = height;
+    window.parent.postMessage({ type: MESSAGE_TYPE, height }, '*');
+  }
+
+  new ResizeObserver(reportHeight).observe(document.documentElement);
+  window.addEventListener('load', reportHeight);
+  window.addEventListener('resize', reportHeight);
+  reportHeight();
+})();
