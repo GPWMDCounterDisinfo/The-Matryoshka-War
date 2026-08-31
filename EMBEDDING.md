@@ -1,21 +1,5 @@
 # Embedding this page (WordPress mobile fix)
 
-This page is embedded at https://gpwmdcounterdisinfo.com/the-matryoshka-model/
-inside an `<iframe>` with a fixed height (currently `height="800px"`). A fixed
-height causes a **nested scrollbar** on mobile: the visitor scrolls the
-WordPress page, then their scroll gets trapped inside the small iframe box
-before they can continue scrolling the rest of the page.
-
-As of this change, the page itself reports its real content height to its
-parent window via `postMessage` (see the "IFRAME AUTO-HEIGHT" block at the
-bottom of `script.js`). It does nothing when the page isn't embedded, so it's
-safe either way.
-
-To make WordPress actually use that height, add a small listener script to
-the **same page** the iframe is embedded on (e.g. right after the iframe in
-the same "Custom HTML" block, or via a header/footer code-injection plugin
-scoped to that page):
-
 ```html
 <script>
 (function () {
